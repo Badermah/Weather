@@ -11,22 +11,26 @@ form.addEventListener("submit", (event) => {
     .then((data) => {
       const forecastData = data.list;
       const cityName = data.city.name;
-
       let forecastHTML = `<h2>${cityName}</h2>`;
+      let currentDate = "";
 
       forecastData.forEach((forecast) => {
         const date = new Date(forecast.dt * 1000);
+        const formattedDate = date.toLocaleDateString("en-US");
         const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
-        const time = date.toLocaleTimeString("en-US", { timeStyle: "short" });
-        const icon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
-        const temp = Math.round(forecast.main.temp);
 
-        forecastHTML += `
-          <div>
-            <p>${weekday} ${time}</p>
-            <p><img src="${icon}" alt="${forecast.weather[0].description}">${temp}°C</p>
-          </div>
-        `;
+        if (formattedDate !== currentDate) {
+          currentDate = formattedDate;
+          const icon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
+          const temp = Math.round(forecast.main.temp);
+
+          forecastHTML += `
+            <div>
+              <p>${weekday}</p>
+              <p><img src="${icon}" alt="${forecast.weather[0].description}">${temp}°F</p>
+            </div>
+          `;
+        }
       });
 
       forecastDiv.innerHTML = forecastHTML;
