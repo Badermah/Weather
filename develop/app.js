@@ -1,5 +1,10 @@
 const form = document.querySelector("form");
 const forecastDiv = document.querySelector("#forecast");
+const box1 = document.querySelector("#box1");
+const box2 = document.querySelector("#box2");
+const box3 = document.querySelector("#box3");
+const box4 = document.querySelector("#box4");
+const box5 = document.querySelector("#box5");
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -11,29 +16,24 @@ form.addEventListener("submit", (event) => {
     .then((data) => {
       const forecastData = data.list;
       const cityName = data.city.name;
-      let forecastHTML = `<h2>${cityName}</h2>`;
       let currentDate = "";
 
-      forecastData.forEach((forecast) => {
-        const date = new Date(forecast.dt * 1000);
-        const formattedDate = date.toLocaleDateString("en-US");
-        const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
-
-        if (formattedDate !== currentDate) {
-          currentDate = formattedDate;
+      forecastData.forEach((forecast, index) => {
+        if (index % 8 === 0) {
+          const date = new Date(forecast.dt * 1000);
+          const formattedDate = date.toLocaleDateString("en-US");
+          const weekday = date.toLocaleDateString("en-US", { weekday: "long" });
           const icon = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}.png`;
           const temp = Math.round(forecast.main.temp);
 
-          forecastHTML += `
-            <div>
-              <p>${weekday}</p>
-              <p><img src="${icon}" alt="${forecast.weather[0].description}">${temp}°F</p>
-            </div>
+          const box = eval(`box${Math.floor(index / 8) + 1}`);
+          const boxHTML = `
+            <p>${weekday}</p>
+            <p><img src="${icon}" alt="${forecast.weather[0].description}">${temp}°F</p>
           `;
+          box.innerHTML = boxHTML;
         }
       });
-
-      forecastDiv.innerHTML = forecastHTML;
     })
     .catch((error) => {
       console.error(error);
