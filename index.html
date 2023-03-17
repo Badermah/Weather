@@ -5,31 +5,38 @@
     <title>5-Day Weather Forecast</title>
     <link rel="stylesheet" href="./develop/style.css" />
   </head>
-  <header id="#header">
-  <h1>5-Day Weather Forecast</h1>
-  <form>
-    <label for="city">Enter City Name:</label>
-    <input type="text" id="city" name="city" required />
-    <button type="submit">Search</button>
-    </form>
-  </header>
   <body>
-    <div id="box">
+    <header id="#header">
+      <h1>5-Day Weather Forecast</h1>
+      <form>
+        <label for="city">Enter City Name:</label>
+        <input type="text" id="city" name="city" required />
+        <button type="submit">Search</button>
+      </form>
+      <div id="search-history"></div>
+    </header>
+    <div id="today-box">
+      <h2>Today</h2>
       <h2 id="box1"></h2>
     </div>
     <div id="box">
-      <h2 id="box2"></h2>
+      <h2 id="box2">-</h2>
     </div>
     <div id="box">
-      <h2 id="box3"></h2>
+      <h2 id="box3">-</h2>
     </div>
     <div id="box">
-      <h2 id="box4"></h2>
+      <h2 id="box4">-</h2>
     </div>
     <div id="box">
-      <h2 id="box5"></h2>
+      <h2 id="box5">-</h2>
     </div>
     <div id="forecast"></div>
+    <script src="path/to/dayjs/dayjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs"></script>
+    <script>
+      dayjs().format();
+    </script>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="./develop/app.js"></script>
   </body>
